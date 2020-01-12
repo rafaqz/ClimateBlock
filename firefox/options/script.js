@@ -47,22 +47,6 @@ function createItem(site) {
 	list.appendChild(container);
 }
 
-// Generate backup text
-async function backup() {
-	// Load list from storage
-	var list = '';
-	let data = await browser.storage.sync.get();
-	
-	// Generate text
-	var output = document.getElementById('backuptext');
-	for (i = 0; i < data.siteList.length; i++) {
-		list += data.siteList[i].name + ',';
-	}
-	
-	// Display text
-	output.value = list.slice(0,-1);
-}
-
 var siteData;
 // Run when page loads
 window.onload = function(){

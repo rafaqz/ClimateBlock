@@ -27,7 +27,7 @@ async function createBlocker() {
 
 // Handle blocked URL
 function block(requestDetails) {
-	return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html')};
+	return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + requestDetails.url)};
 }
 
 // Handles missing data
@@ -36,7 +36,7 @@ async function checkData() {
 	let data = await browser.storage.sync.get();
 
 	// Create blank URL list in storage if required
-	// if (!data.urlList) {
+	// if (!data.siteList) {
 		browser.storage.sync.set({siteList: sites});
 	// }
 }
