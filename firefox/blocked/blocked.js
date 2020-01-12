@@ -7,3 +7,13 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+
+
+window.onload = function(){
+    blockedurl = getParameterByName("url")
+	let data = await browser.storage.sync.get();
+
+	for (i = 0; i < data.siteList.length; i++) {
+		data.siteList[i].url
+	}
+};

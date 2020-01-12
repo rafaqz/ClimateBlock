@@ -2,12 +2,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-/* Set cursor and disable text selection */
-* {
-	cursor: default;
-	-moz-user-select: none;
-}
-
 /* Body */
 body {
 	background: #DDDDDD;

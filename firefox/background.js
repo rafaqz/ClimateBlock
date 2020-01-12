@@ -26,8 +26,8 @@ async function createBlocker() {
 }
 
 // Handle blocked URL
-function block(requestDetails) {
-	return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + requestDetails.url)};
+function block(details) {
+	return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + details.url)};
 }
 
 // Handles missing data

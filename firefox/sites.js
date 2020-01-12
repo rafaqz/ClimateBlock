@@ -1,5 +1,5 @@
 var sites = [
-  {"name": "Adelaide Now", "url": "*://*.adelaidenow.com.au/*",  "active": false},
+  {"name": "Adelaide Now", "url": "*://*.adelaidenow.com.au/*",  "active": true},
   {"name": "Amplify", "url": "*://*.amplify.com/*", "active": true},
   {"name": "Australian News Channel", "url": "*://*.australiannewschannel/*", "active": true},
   {"name": "Best Recipes", "url": "*://*.bestrecipes.com.au/*", "active": true},
