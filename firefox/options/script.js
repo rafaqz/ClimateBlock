@@ -11,7 +11,7 @@ async function restore() {
 	// Add items to GUI table
 	var list = document.getElementById('site-list');
 	for (i = 0; i < data.siteList.length; i++) {
-		createItem(data.siteList[i]);
+		createItem(data.siteList[i], i);
 	}
 }
 
@@ -21,7 +21,7 @@ function save() {
 }
 
 // Create item GUI
-function createItem(site) {
+function createItem(site, index) {
 	var list = document.getElementById('site-list');
 	
 	// Create item container
@@ -39,12 +39,24 @@ function createItem(site) {
   active.type = 'checkbox';
   active.id = site.name.replace(/ /g,"_").toLowerCase(); // need unique Ids!
   active.checked = site.active;
+  active.onclick = function(event) {
+    if (this.checked) setBlock(index, true);
+    else setBlock(index, false);
+  };
 	
 	// Merge items
 	container.appendChild(name);
 	container.appendChild(url);
 	container.appendChild(active);
 	list.appendChild(container);
+}
+
+async function setBlock(index, value) {
+	// Load list from storage
+	let data = await browser.storage.sync.get();
+	siteData = data.siteList;
+	siteData[index].active = value;
+	browser.storage.sync.set({siteList: siteData});
 }
 
 var siteData;
