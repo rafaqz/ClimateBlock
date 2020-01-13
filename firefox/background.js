@@ -25,11 +25,6 @@ async function createBlocker() {
 	}
 }
 
-// Handle blocked URL
-function block(details) {
-	return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + details.url)};
-}
-
 // Handles missing data
 async function checkData() {
 	// Load URLs from storage
@@ -39,10 +34,33 @@ async function checkData() {
 	// if (!data.siteList) {
 		browser.storage.sync.set({siteList: sites});
 	// }
+  
+	if (!data.siteList) {
+		browser.storage.sync.set({isBlocking: true});
+	 }
 }
 
-// Import SDK Stuff
+// Toggle url blocking and icon
+function toggleBlock() {
+  if (browser.webRequest.onBeforeRequest.hasListener(block)) {
+		browser.webRequest.onBeforeRequest.removeListener(block);
+    browser.browserAction.setIcon({path: "icons/icon-dark-32.png"});
+  } else {
+		browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
+    browser.browserAction.setIcon({path: "icons/icon-32.png"});
+  }
+}
+
+// Handle blocked URL
+function block(details) {
+    // str = JSON.stringify(details, null, 4); // (Optional) beautiful indented output.
+    // console.log(str); // Logs output to dev tools console.
+    return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + details.url)};
+}
+
+
 var filter = [];
 createBlocker();
 browser.storage.onChanged.addListener(createBlocker);
+browser.browserAction.onClicked.addListener(toggleBlock);
 checkData();

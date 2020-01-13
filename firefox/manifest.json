@@ -34,6 +34,14 @@
 	"background": {
 		"scripts": ["sites.js", "background.js"]
 	},
+
+
+  "browser_action": {
+    "default_icon": {
+      "32": "icons/icon-32.png"
+    }
+  },
+
 	
 	"web_accessible_resources": ["/blocked/blockpage.html"],
 	
