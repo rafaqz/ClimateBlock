@@ -45,5 +45,5 @@
 	
 	"web_accessible_resources": ["/blocked/blockpage.html"],
 	
-	"permissions": ["storage","webRequest","webRequestBlocking","<all_urls>"]
+	"permissions": ["contextMenus","storage","webRequest","webRequestBlocking","<all_urls>"]
 }

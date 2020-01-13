@@ -58,6 +58,14 @@ function block(details) {
     return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + details.url)};
 }
 
+browser.contextMenus.create({
+  id: "blocked-site-list",
+  title: "Blocked sites",
+  contexts: ['all'],
+  onclick: function () {
+    browser.tabs.create({url: browser.extension.getURL('options/options.html')});
+  },
+});
 
 var filter = [];
 createBlocker();
