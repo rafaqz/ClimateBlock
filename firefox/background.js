@@ -4,58 +4,62 @@
 
 // Create block handler
 async function createBlocker() {
-	// Remove previous listener
-	browser.webRequest.onBeforeRequest.removeListener(block);
-	
-	// Load URLs from storage
-	let sites = await browser.storage.sync.get();
-	
-	// Check if there are URLs to load
-	if (sites.siteList) {
-		// Create URL fliter list
-		filter = [];
-		for (i = 0; i < sites.siteList.length; i++) {
-      if (sites.siteList[i].active) {
-        filter.push(sites.siteList[i].url);
+  // Remove previous listener
+  browser.webRequest.onBeforeRequest.removeListener(block);
+  
+  // Load URLs from storage
+  let data = await browser.storage.sync.get();
+  siteList = data.siteList
+  sessionList = data.sessionList
+  
+  // Check if there are URLs to load
+  if (data.siteList) {
+    // Create URL fliter list
+    filter = [];
+    for (i = 0; i < data.siteList.length; i++) {
+      if (data.siteList[i].active && sessionList[i]) {
+        filter.push(data.siteList[i].url);
       }
-		}
-		
-		// Create listener
-		browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
-	}
+    }
+
+    // Create listener
+    browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
+  }
 }
 
 // Handles missing data
 async function checkData() {
-	// Load URLs from storage
-	let data = await browser.storage.sync.get();
+  // Load URLs from storage
+  let data = await browser.storage.sync.get();
 
-	// Create blank URL list in storage if required
-	// if (!data.siteList) {
-		browser.storage.sync.set({siteList: sites});
-	// }
+  // Create blank URL list in storage if required
+  browser.storage.sync.set({siteList: sites});
+
+  session = [];
+  for (i = 0; i < sites.length; i++) {
+    session.push(true)
+  }
+  browser.storage.sync.set({sessionList: session});
   
-	if (!data.siteList) {
-		browser.storage.sync.set({isBlocking: true});
-	 }
+  if (!data.siteList) {
+    browser.storage.sync.set({isBlocking: true});
+  }
 }
 
 // Toggle url blocking and icon
 function toggleBlock() {
   if (browser.webRequest.onBeforeRequest.hasListener(block)) {
-		browser.webRequest.onBeforeRequest.removeListener(block);
-    browser.browserAction.setIcon({path: "icons/icon-dark-32.png"});
+    browser.webRequest.onBeforeRequest.removeListener(block);
+    browser.browserAction.setIcon({path: "icons/favicon-disabled.svg"});
   } else {
-		browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
-    browser.browserAction.setIcon({path: "icons/icon-32.png"});
+    browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
+    browser.browserAction.setIcon({path: "icons/favicon.svg"});
   }
 }
 
 // Handle blocked URL
 function block(details) {
-    // str = JSON.stringify(details, null, 4); // (Optional) beautiful indented output.
-    // console.log(str); // Logs output to dev tools console.
-    return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + details.url)};
+  return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + details.url)};
 }
 
 browser.contextMenus.create({

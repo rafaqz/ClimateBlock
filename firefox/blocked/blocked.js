@@ -16,15 +16,15 @@ window.addEventListener('load', (event) => {
 // window.onload = function(){
 //   console.log('window.onload');
 //   blockedUrl = getParameterByName('url');
-// 	// let data = await browser.storage.sync.get();
+//  // let data = await browser.storage.sync.get();
 
-// 	for (i = 0; i < data.siteList.length; i++) {
+//  for (i = 0; i < data.siteList.length; i++) {
 //     siteUrl = data.siteList[i].url.slice(5, -1);
 //     if (blockUrl.includes(siteUrl)) {
 //       index = i;
 //       break;
 //     }
-// 	}
+//  }
 //   console.log(index);
 //   str = JSON.stringify(data.siteList[index], null, 4);
 //   console.log(str);

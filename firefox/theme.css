@@ -2,15 +2,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+/****************** Options *********************/
+
 /* Variables */
 :root {
 	--color-white: #FFFFFF;
 	--color-light: #E6E6E6;
 	--color-dark: #1A1A1A;
 	--color-faded: #808080;
-	--color-red: #FF3333;
-	--color-red-2: #CC0000;
-	--color-blue: #0066CC;
+	--color-blue: #1C787D;
 	--color-green-2: #00331A;
 	--font-size: 14pt;
 }
@@ -32,17 +32,20 @@ textarea {
 
 /* Body styling */
 body {
-	background: var(--color-white);
-	color: var(--color-dark);
-	font: var(--font-size) sans-serif;
+	background: var(--color-blue);
+	color: var(--color-light);
+	font-size: var(--font-size);
+  font-family: 'Roboto', sans-serif;
 	margin: 0px;
 	min-height: 100vh;
 	padding: 0px;
+	display: flex;
+	flex-direction: column;
 }
 
 /* Element positioning */
 .page {
-	background: var(--color-white);
+	background: var(--color-blue);
 	border-top: none;
 	box-sizing: border-box;
 	margin: auto;
@@ -61,10 +64,15 @@ body {
 /* URL item container */
 .list-item {
 	background: white;
-	border: 1px solid var(--color-light);
+	border: 1px solid var(--color-blue);
+	color: 1px solid var(--color-dark);
 	display: flex;
 	overflow: hidden;
 	width: 100%;
+}
+
+#site-list {
+	color: var(--color-dark);
 }
 
 /* URL item label */
@@ -85,7 +93,43 @@ hr {
 
 /* Links */
 a {
-	color: blue;
+	color: : var(--color-red);
 	cursor: pointer;
 	text-decoration: underline;
+}
+
+/****************** Blocked *********************/
+
+/* Body */
+body {
+}
+
+/* Center everything */
+div {
+	margin: auto;
+}
+
+/* Spacers */
+.spacer,
+.content * {
+	flex: 1;
+}
+
+/* Content container */
+.content {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+/* Text */
+h1 {
+	color: var(--color-light)
+	font: bold 4vh sans-serif;
+}
+
+/* Logo */
+img {
+	margin: auto;
+	width: 20vh;
 }
