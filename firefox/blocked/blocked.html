@@ -12,19 +12,23 @@
     <link rel="stylesheet" href="../theme.css">
     <script src="blocked.js"></script>
   </head>
-  <body>
-    <div class="spacer"></div>
-    <div class="content">
-      <img src="../icons/earth.svg">
-      <h1>Murdoch owned site has been blocked</h1>
+  <body class="blocked">
+    <div id="btn-edit">
+      <a href="../options/options.html" class="btn">Edit blocked list</a>
     </div>
-    <div class="spacer"></div>
-    <div class="options">
-      <div class="content">
-        <input type="image" src="../icons/btn1.svg" value="Unblock permanently"/>
-        <input type="image" src="../icons/btn1.svg" value="Unblock for this session"/>
-        <span></span>
+    <div class="flex-column">
+      <div class="img-container">
+        <img src="../icons/earth.svg">
+        <div class="img-text">blocked</div>
       </div>
-    <div class="spacer"></div>
+      <h1>This website is blocked</h1>
+      <p>
+        Visiting this website creates revenue for climate change deniers. <br> Can we really afford that?
+      </p>
+      <div class="flex-row">
+        <a href="#" id="btn-this-time" class="btn">Allow this time</a>
+        <a href="#" id="btn-allways" class="btn">Allways allow this website</a>
+      </div>
+    </div>
   </body>
 </html>

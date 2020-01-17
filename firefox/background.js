@@ -59,12 +59,12 @@ function toggleBlock() {
 
 // Handle blocked URL
 function block(details) {
-  return {redirectUrl: browser.runtime.getURL('/blocked/blockpage.html?url=' + details.url)};
+  return {redirectUrl: browser.runtime.getURL('/blocked/blocked.html?url=' + details.url)};
 }
 
 browser.contextMenus.create({
   id: "blocked-site-list",
-  title: "Blocked sites",
+  title: "Climate block",
   contexts: ['all'],
   onclick: function () {
     browser.tabs.create({url: browser.extension.getURL('options/options.html')});

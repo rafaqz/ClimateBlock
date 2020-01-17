@@ -2,17 +2,16 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-/****************** Options *********************/
 
 /* Variables */
 :root {
-	--color-white: #FFFFFF;
 	--color-light: #E6E6E6;
-	--color-dark: #1A1A1A;
-	--color-faded: #808080;
-	--color-blue: #1C787D;
-	--color-green-2: #00331A;
-	--font-size: 14pt;
+	--color-black: #002022;
+	--color-blue: #1C7A7E;
+  --color-cyan: #1CBBCC;
+  --color-light-grey: #EAEDED;
+  --color-grey: #B0B6B7;
+  --color-dark-grey: #6C8183;
 }
 
 /* Cursor pointer */
@@ -24,6 +23,12 @@ select {
 	cursor: pointer;
 }
 
+
+/* Center everything */
+div {
+	margin: auto;
+}
+
 /* Cursor text selection */
 input[type=text],
 textarea {
@@ -32,9 +37,7 @@ textarea {
 
 /* Body styling */
 body {
-	background: var(--color-blue);
-	color: var(--color-light);
-	font-size: var(--font-size);
+	font-size: 14pt;
   font-family: 'Roboto', sans-serif;
 	margin: 0px;
 	min-height: 100vh;
@@ -43,15 +46,113 @@ body {
 	flex-direction: column;
 }
 
+body.blocked {
+	background: var(--color-blue);
+	color: var(--color-light);
+}
+
+
+body.options {
+	background: var(--color-light-grey);
+	color: var(--color-black);
+}
+
 /* Element positioning */
 .page {
-	background: var(--color-blue);
 	border-top: none;
 	box-sizing: border-box;
 	margin: auto;
-	max-width: 800px;
 	padding: 10px;
-	width: 100%;	
+	min-width: 70vw;
+}
+
+
+
+
+
+
+/****************** Blocked *********************/
+
+/* Content container */
+.flex-column {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+
+/* Text */
+h1 {
+	color: var(--color-light);
+	font: bold 2.4em Roboto;
+}
+
+p {
+	font-size: 1.3em;
+}
+
+.img-container {
+  position: relative;
+  text-align: center;
+}
+
+/* Logo */
+img {
+	margin: auto;
+	width: 20vh;
+}
+
+.img-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-transform: uppercase;
+  font-size: 1.3em;
+  font-weight: bold; 
+}
+
+
+/* Buttons */
+.btn {
+	background-color:#015256;
+	border-radius:6px;
+	border:1px solid #169393;
+	cursor:pointer;
+	color: var(--color-light);
+	font-size:18px;
+	padding:4px 31px;
+	margin:4px;
+	text-decoration:none;
+}
+
+#btn-edit {
+  display:flex;
+  justify-content:flex-end;
+	margin: 5px;
+}
+#btn-edit a {
+  flex: none;
+}
+
+
+
+
+
+
+
+
+/****************** Options *********************/
+
+h2 {
+  margin: 2em 0 1em 0;
+	color: var(--color-black);
+	font: bold 2.2em Roboto;
 }
 
 /* URL list */
@@ -63,19 +164,24 @@ body {
 
 /* URL item container */
 .list-item {
-	background: white;
-	border: 1px solid var(--color-blue);
-	color: 1px solid var(--color-dark);
+  border-bottom: 1px solid var(--color-light-grey);
+	color: 1px solid var(--color-black);
 	display: flex;
 	overflow: hidden;
 	width: 100%;
+  padding: 5px;
 }
 
 #site-list {
-	color: var(--color-dark);
+	color: var(--color-black);
+  background: #F8FAFA 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 10px #EAEAEA;
+  border-radius: 9px;
+  opacity: 1;
+  padding: 40px;
 }
 
-/* URL item label */
+
 .list-item span {
 	flex: 1;
 	padding: 5px;
@@ -86,50 +192,99 @@ body {
 	display: flex;
 }
 
+span.name {
+  color: var(--color-black);
+  font-size: 20px;
+}
+
+span.url {
+  color: var(--color-dark-grey);
+  letter-spacing: 0;
+}
+
+span.toggle {
+	display: flex;
+	flex-direction: row;
+}
+
+label.status {
+  margin: 3px 20px;
+  text-transform: uppercase;
+  color: var(--color-grey);
+}
+
+label.status-all {
+	color: var(--color-black);
+  font-weight: bold; 
+}
+
 /* Line split */
 hr {
 	color: var(--color-light);
 }
 
-/* Links */
-a {
-	color: : var(--color-red);
-	cursor: pointer;
-	text-decoration: underline;
+br {
+  margin: 0px;
+  padding: 0px;
+  height: 0px;
+  border: 1px solid #E6E6E6;
+  opacity: 1;
 }
 
-/****************** Blocked *********************/
+/* Toggle from https://codepen.io/mallendeo/details/eLIiG */
 
-/* Body */
-body {
+.tgl {
+  display: none;
+}
+.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+.tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection {
+  background: none;
+}
+.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
+  background: none;
+}
+.tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 44px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+.tgl + .tgl-btn:after {
+  left: 0;
+}
+.tgl + .tgl-btn:before {
+  display: none;
+}
+.tgl:checked + .tgl-btn:after {
+  left: 50%;
 }
 
-/* Center everything */
-div {
-	margin: auto;
+.tgl-light + .tgl-btn {
+  background: var(--color-grey);
+  border-radius: 1em;
+  padding: 3px;
+  transition: all .15s ease;
 }
-
-/* Spacers */
-.spacer,
-.content * {
-	flex: 1;
+.tgl-light + .tgl-btn:after {
+  border-radius: 50%;
+  background: #fff;
+  transition: all .15s ease;
 }
-
-/* Content container */
-.content {
-	display: flex;
-	flex-direction: column;
-	text-align: center;
-}
-
-/* Text */
-h1 {
-	color: var(--color-light)
-	font: bold 4vh sans-serif;
-}
-
-/* Logo */
-img {
-	margin: auto;
-	width: 20vh;
+.tgl-light:checked + .tgl-btn {
+  background: var(--color-cyan);
 }

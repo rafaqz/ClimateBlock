@@ -38,7 +38,7 @@
   },
 
 	
-	"web_accessible_resources": ["/blocked/blockpage.html"],
+	"web_accessible_resources": ["/blocked/blocked.html"],
 	
 	"permissions": ["contextMenus","storage","webRequest","webRequestBlocking","<all_urls>"]
 }
