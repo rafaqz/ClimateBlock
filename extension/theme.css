@@ -195,7 +195,7 @@ div.name {
 }
 
 div.url {
-  flex: 2 2;
+  flex: 1 2;
   color: var(--color-dark-grey);
   font-size: 1.0em;
   letter-spacing: 0;
