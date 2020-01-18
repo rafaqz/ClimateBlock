@@ -7,8 +7,6 @@ async function loadQuery(event) {
 
   var btnThisTime = document.getElementById('btn-this-time');
   btnThisTime.onclick = allowSession;
-
-  console.log('page is fully loaded');
 }
 
 function getParameterByName(name, url) {
