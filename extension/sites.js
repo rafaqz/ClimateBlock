@@ -38,16 +38,16 @@ var sites = [
   {"name": "NT News", "url": "*://*.ntnews.com.au/*", "active": true},
   {"name": "NY Post", "url": "*://*.nypost.com/*", "active": true},
   {"name": "Odds", "url": "*://*.odds.com.au/*", "active": true},
-  {"name": "Onebigswitch", "url": "*://*.onebigswitch.com.au/*", "active": true},
+  {"name": "One Big Switch", "url": "*://*.onebigswitch.com.au/*", "active": true},
   {"name": "Perth Now", "url": "*://*.perthnow.com.au/*", "active": true},
   {"name": "Punters", "url": "*://*.punters.com.au/*", "active": true},
   {"name": "Real Commercial", "url": "*://*.realcommercial.com.au/*", "active": true},
   {"name": "Real Estate", "url": "*://*.realestate.com.au/*", "active": true},
-  {"name": "Shop gerret", "url": "*://*.shopferret.com.au/*", "active": true},
+  {"name": "Shop Ferret", "url": "*://*.shopferret.com.au/*", "active": true},
   {"name": "Sky News", "url": "*://*.skynews.com.au/*", "active": true},
   {"name": "Sky Weather", "url": "*://*.skyweather.com.au/*", "active": true},
   {"name": "Smart Source", "url": "*://*.smartsource.com/*", "active": true},
-  {"name": "Stocksinvalue", "url": "*://*.stocksinvalue.com.au/*", "active": true},
+  {"name": "Stocks in Value", "url": "*://*.stocksinvalue.com.au/*", "active": true},
   {"name": "Storyful", "url": "*://*.storyful.com/*", "active": true},
   {"name": "Suddenly", "url": "*://*.suddenly.com.au/*", "active": true},
   {"name": "Supercoach", "url": "*://*.supercoach.com.au/*", "active": true},
@@ -62,5 +62,5 @@ var sites = [
   {"name": "Vogue", "url": "*://*.vogue.com.au/*", "active": true},
   {"name": "Weekly Times Now", "url": "*://*.weeklytimesnow.com.au/*", "active": true},
   {"name": "Wego", "url": "*://*.wego.com.au/*", "active": true},
-  {"name": "whereilive", "url": "*://*.whereilive.com.au/*", "active": true}
+  {"name": "Where I Live", "url": "*://*.whereilive.com.au/*", "active": true}
 ]

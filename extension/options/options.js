@@ -46,19 +46,19 @@ function createItem(site, sessionval, index) {
 	
 	// Create item container
 	var container = document.createElement('div');
-	container.className = 'list-item';
+	container.className = 'list-item flex-parent';
 	
 	// Create item text label
-	var name = document.createElement('span');
-  name.className = "name"
+	var name = document.createElement('div');
+  name.className = "name flex-child"
 	name.textContent = site.name;
 
-	var url = document.createElement('span');
-  url.className = "url"
+	var url = document.createElement('div');
+  url.className = "url flex-child"
 	url.textContent = site.url;
 
-  var toggle = document.createElement('span');
-  toggle.className = "toggle"
+  var toggle = document.createElement('div');
+  toggle.className = "toggle flex-child"
   toggleid = 'cb' + index;
   var togglecheck = document.createElement('input');
   togglecheck.type = 'checkbox';

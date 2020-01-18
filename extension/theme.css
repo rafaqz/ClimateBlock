@@ -6,6 +6,7 @@
 /* Variables */
 :root {
 	--color-light: #E6E6E6;
+	--color-lighter: #F8FAFA;
 	--color-black: #002022;
 	--color-blue: #1C7A7E;
   --color-cyan: #1CBBCC;
@@ -63,7 +64,8 @@ body.options {
 	box-sizing: border-box;
 	margin: auto;
 	padding: 10px;
-	min-width: 70vw;
+	min-width: 65vw;
+	max-width: 97vw;
 }
 
 
@@ -162,55 +164,57 @@ h2 {
 	width: 100%;
 }
 
-/* URL item container */
+#site-list {
+	color: var(--color-black);
+  background: var(--color-lighter) 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 10px #EAEAEA;
+  border-radius: 1em;
+}
+
 .list-item {
   border-bottom: 1px solid var(--color-light-grey);
 	color: 1px solid var(--color-black);
-	display: flex;
-	overflow: hidden;
-	width: 100%;
-  padding: 5px;
-}
-
-#site-list {
-	color: var(--color-black);
-  background: #F8FAFA 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 10px #EAEAEA;
-  border-radius: 9px;
-  opacity: 1;
-  padding: 40px;
 }
 
 
-.list-item span {
-	flex: 1;
-	padding: 5px;
-}
-
-/* Container */
-.container {
+.flex-parent {
 	display: flex;
 }
 
-span.name {
+.flex-child {
+	margin: 0.5em;
+  flex: 1 1;
+}
+
+div.name {
+  flex: 1 0;
   color: var(--color-black);
-  font-size: 20px;
+  min-width: 4em;
+  font-size: 1.1em;
 }
 
-span.url {
+div.url {
+  flex: 2 2;
   color: var(--color-dark-grey);
+  font-size: 1.0em;
   letter-spacing: 0;
+  min-width: 0;
+  overflow: hidden;
 }
 
-span.toggle {
+div.toggle {
 	display: flex;
 	flex-direction: row;
+  font-size: 0.9em;
+  justify-content: flex-end;
+  flex: 0 0 7.5em;
 }
 
 label.status {
-  margin: 3px 20px;
+  padding: 0.05em 1em;
   text-transform: uppercase;
   color: var(--color-grey);
+  width: 5.5em;
 }
 
 label.status-all {
@@ -224,9 +228,9 @@ hr {
 }
 
 br {
-  margin: 0px;
-  padding: 0px;
-  height: 0px;
+  margin: 0;
+  padding: 0;
+  height: 0;
   border: 1px solid #E6E6E6;
   opacity: 1;
 }
