@@ -2,6 +2,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
+browser.tabs.executeScript({ file: "/polyfills/browser-polyfill.js" }).then(loadContentScript).catch((error) => logError(error));
+
+function loadContentScript() {
+    browser.tabs.executeScript({ file: "/inject-content/inject.js" }).then(listenForClicks).catch((error) => logError(error));
+}
+
 // Load settings
 async function buildList() {
 	// Load list from storage
