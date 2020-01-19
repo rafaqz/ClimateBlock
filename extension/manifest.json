@@ -8,6 +8,7 @@
     "16": "icons/favicon16.png",
     "32": "icons/favicon32.png",
     "48": "icons/favicon48.png",
+    "96": "icons/favicon48.png",
     "128": "icons/favicon128.png"
 	},
 	"options_ui": {
@@ -16,7 +17,7 @@
 	},
 	"background": {
 		"scripts": [
-      "browser-polyfill.js",
+      "browser-polyfill.min.js",
       "sites.js", 
       "background.js"
     ]
@@ -26,6 +27,7 @@
       "16": "icons/favicon16.png",
       "32": "icons/favicon32.png",
       "48": "icons/favicon48.png",
+      "96": "icons/favicon48.png",
       "128": "icons/favicon128.png"
     }
   },

@@ -17,14 +17,13 @@ async function buildList() {
   var blockAll = document.getElementById('cb-all');
 
   blockAll.onclick = async function(event) {
-    // Update site list
-    let data = await browser.storage.sync.get();
+    // Allways start with a fresh site list
+    siteList = sites;
+    sessionList = [];
     for (i = 0; i < siteList.length; i++) {
-      data.siteList[i].active = this.checked;
-      data.sessionList[i] = true; 
+      sessionList.push(true)
+      siteList[i].blocked = this.checked; 
     };
-    browser.storage.sync.set({siteList: data.siteList});
-    browser.storage.sync.set({sessionList: data.sessionList});
 
     // Update all toggles
     var toggles = document.getElementsByClassName('tgl-single');
@@ -34,13 +33,18 @@ async function buildList() {
       toggles[i].checked = this.checked;
       statusLabels[i].textContent = labelStatus(this.checked); 
     };
+
+    browser.storage.sync.set({siteList: siteList});
+    browser.storage.sync.set({sessionList: sessionList});
+
+    console.log("blocked all: ", this.checked);
   };
 }
 
 // Create item GUI
 function createItem(site, sessionval, index) {
 
-  blocked = site.active && sessionval;
+  blocked = site.blocked && sessionval;
 
 	var list = document.getElementById('site-list');
 	
@@ -98,13 +102,13 @@ async function setBlock(index, blocked) {
   statusLabel.textContent = labelStatus(blocked); 
 
   // Update the site list
-	data.siteList[index].active = blocked;
+	data.siteList[index].blocked = blocked;
   // Allways reset the session list
 	data.sessionList[index] = true;
 
   //Write to storage
-	browser.storage.sync.set({sessionList: data.sessionList});
-	browser.storage.sync.set({siteList: data.siteList});
+	await browser.storage.sync.set({sessionList: data.sessionList});
+	await browser.storage.sync.set({siteList: data.siteList});
 }
 
 function labelStatus(blocked) {
@@ -114,5 +118,6 @@ function labelStatus(blocked) {
 
 // Run when page loads
 window.onload = function(){
+  console.log("open options page");
 	buildList();
 };

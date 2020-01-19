@@ -10,21 +10,23 @@ async function createBlocker() {
   
   // Load URLs from storage
   let data = await browser.storage.sync.get();
-  siteList = data.siteList
-  sessionList = data.sessionList
   
   // Check if there are URLs to load
   if (data.siteList) {
     // Create URL fliter list
     filter = [];
     for (i = 0; i < data.siteList.length; i++) {
-      if (data.siteList[i].active && sessionList[i]) {
+      if (data.siteList[i].blocked && data.sessionList[i]) {
         filter.push(data.siteList[i].url);
       }
-    }
+    };
+    // console.log("siteList: ", data.siteList);
+    // console.log("filter: ", filter);
 
     // Create listener
-    browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
+    if (filter.length > 0) {
+      browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
+    };
   }
 }
 
@@ -34,15 +36,18 @@ async function checkData() {
   let data = await browser.storage.sync.get();
 
   // Create blank URL list in storage if required
-  browser.storage.sync.set({siteList: sites});
+  // if (!data.siteList) {
+    browser.storage.sync.set({siteList: sites});
+  // };
 
-  session = [];
+  sessionList = [];
   for (i = 0; i < sites.length; i++) {
-    session.push(true)
+    sessionList.push(true)
   }
-  browser.storage.sync.set({sessionList: session});
+
+  browser.storage.sync.set({sessionList: sessionList});
   
-  if (!data.siteList) {
+  if (!data.isBlocking) {
     browser.storage.sync.set({isBlocking: true});
   }
 }
@@ -72,7 +77,6 @@ browser.contextMenus.create({
   },
 });
 
-var filter = [];
 createBlocker();
 browser.storage.onChanged.addListener(createBlocker);
 browser.browserAction.onClicked.addListener(toggleBlock);
