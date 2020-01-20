@@ -17,7 +17,7 @@
 	},
 	"background": {
 		"scripts": [
-      "browser-polyfill.min.js",
+      "browser-polyfill.js",
       "sites.js", 
       "background.js"
     ]
@@ -32,11 +32,5 @@
     }
   },
 	"web_accessible_resources": ["/blocked/blocked.html"],
-	"permissions": ["contextMenus","storage","webRequest","webRequestBlocking","<all_urls>"],
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "x@x.com",
-			"strict_min_version": "57.0"
-		}
-	}
+	"permissions": ["contextMenus","storage","webRequest","webRequestBlocking","<all_urls>"]
 }

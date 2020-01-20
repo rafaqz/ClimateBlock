@@ -1,0 +1,7 @@
+{
+  "name": "ClimateBlock",
+  "version": "0.1.0",
+  "devDependencies": {
+    "webextension-polyfill": "^0.6.0"
+  }
+}

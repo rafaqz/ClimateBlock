@@ -2,17 +2,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-
 // Create block handler
 async function createBlocker() {
   // Remove previous listener
   browser.webRequest.onBeforeRequest.removeListener(block);
   
   // Load URLs from storage
-  let data = await browser.storage.sync.get();
+  let data = await browser.storage.local.get();
   
   // Check if there are URLs to load
   if (data.siteList) {
+
     // Create URL fliter list
     filter = [];
     for (i = 0; i < data.siteList.length; i++) {
@@ -20,8 +20,6 @@ async function createBlocker() {
         filter.push(data.siteList[i].url);
       }
     };
-    // console.log("siteList: ", data.siteList);
-    // console.log("filter: ", filter);
 
     // Create listener
     if (filter.length > 0) {
@@ -33,23 +31,19 @@ async function createBlocker() {
 // Handles missing data
 async function checkData() {
   // Load URLs from storage
-  let data = await browser.storage.sync.get();
+  let data = await browser.storage.local.get();
 
   // Create blank URL list in storage if required
-  // if (!data.siteList) {
-    browser.storage.sync.set({siteList: sites});
-  // };
+  if (!data.siteList) {
+    browser.storage.local.set({siteList: sites});
+  };
 
   sessionList = [];
   for (i = 0; i < sites.length; i++) {
-    sessionList.push(true)
+    sessionList.push(true);
   }
-
-  browser.storage.sync.set({sessionList: sessionList});
-  
-  if (!data.isBlocking) {
-    browser.storage.sync.set({isBlocking: true});
-  }
+  browser.storage.local.set({sessionList: sessionList});
+  console.log("data updated");
 }
 
 // Toggle url blocking and icon
@@ -68,16 +62,23 @@ function block(details) {
   return {redirectUrl: browser.runtime.getURL('/blocked/blocked.html?url=' + details.url)};
 }
 
-browser.contextMenus.create({
-  id: "blocked-site-list",
-  title: "Climate block",
-  contexts: ['all'],
-  onclick: function () {
-    browser.tabs.create({url: browser.extension.getURL('options/options.html')});
-  },
-});
+function setupData() {
+  console.log("setting up");
 
-createBlocker();
-browser.storage.onChanged.addListener(createBlocker);
-browser.browserAction.onClicked.addListener(toggleBlock);
-checkData();
+  browser.contextMenus.create({
+    id: "blocked-site-list",
+    title: "Climate block",
+    contexts: ['all'],
+    onclick: function () {
+      browser.tabs.create({url: browser.extension.getURL('options/options.html')});
+    },
+  });
+
+  createBlocker();
+  browser.storage.onChanged.addListener(createBlocker);
+  browser.browserAction.onClicked.addListener(toggleBlock);
+  checkData();
+}
+
+var filter = [];
+setupData();

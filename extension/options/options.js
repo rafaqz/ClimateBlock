@@ -2,16 +2,34 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/. */
 
-browser.tabs.executeScript({ file: "/polyfills/browser-polyfill.js" }).then(loadContentScript).catch((error) => logError(error));
+function blockAll(event) {
+  // Allways start with a fresh site list
+  siteList = sites;
+  sessionList = [];
+  for (i = 0; i < siteList.length; i++) {
+    sessionList.push(true)
+    siteList[i].blocked = this.checked; 
+  };
 
-function loadContentScript() {
-    browser.tabs.executeScript({ file: "/inject-content/inject.js" }).then(listenForClicks).catch((error) => logError(error));
-}
+  // Update all toggles
+  var toggles = document.getElementsByClassName('tgl-single');
+  var statusLabels = document.getElementsByClassName('status-single');
+
+  for (var i=0; i < toggles.length; i++) {
+    toggles[i].checked = this.checked;
+    statusLabels[i].textContent = statusLabelString(this.checked); 
+  };
+
+  browser.storage.local.set({siteList: siteList});
+  browser.storage.local.set({sessionList: sessionList});
+
+  console.log("blocked all: ", this.checked);
+};
 
 // Load settings
 async function buildList() {
 	// Load list from storage
-	let data = await browser.storage.sync.get();
+	let data = await browser.storage.local.get();
 	siteList = data.siteList;
 	sessionList = data.sessionList;
 	
@@ -20,32 +38,10 @@ async function buildList() {
 		createItem(siteList[i], sessionList[i], i);
 	}
 
-  var blockAll = document.getElementById('cb-all');
-
-  blockAll.onclick = async function(event) {
-    // Allways start with a fresh site list
-    siteList = sites;
-    sessionList = [];
-    for (i = 0; i < siteList.length; i++) {
-      sessionList.push(true)
-      siteList[i].blocked = this.checked; 
-    };
-
-    // Update all toggles
-    var toggles = document.getElementsByClassName('tgl-single');
-    var statusLabels = document.getElementsByClassName('status-single');
-
-    for (var i=0; i < toggles.length; i++) {
-      toggles[i].checked = this.checked;
-      statusLabels[i].textContent = labelStatus(this.checked); 
-    };
-
-    browser.storage.sync.set({siteList: siteList});
-    browser.storage.sync.set({sessionList: sessionList});
-
-    console.log("blocked all: ", this.checked);
-  };
+  var blockAllCheck = document.getElementById('cb-all');
+  blockAllCheck.onclick = blockAll;
 }
+
 
 // Create item GUI
 function createItem(site, sessionval, index) {
@@ -88,7 +84,7 @@ function createItem(site, sessionval, index) {
   var statusLabel = document.createElement('label');
   statusLabel.id = 'status' + index;
   statusLabel.className = 'status status-single';
-  statusLabel.textContent = labelStatus(blocked);
+  statusLabel.textContent = statusLabelString(blocked);
 
 	toggle.appendChild(statusLabel);
 	
@@ -99,13 +95,14 @@ function createItem(site, sessionval, index) {
 	list.appendChild(container);
 }
 
+// Block a site
 async function setBlock(index, blocked) {
 	// Load data from storage
-	let data = await browser.storage.sync.get();
+	let data = await browser.storage.local.get();
 
   // Set status label
   var statusLabel = document.getElementById('status' + index);
-  statusLabel.textContent = labelStatus(blocked); 
+  statusLabel.textContent = statusLabelString(blocked); 
 
   // Update the site list
 	data.siteList[index].blocked = blocked;
@@ -113,17 +110,13 @@ async function setBlock(index, blocked) {
 	data.sessionList[index] = true;
 
   //Write to storage
-	await browser.storage.sync.set({sessionList: data.sessionList});
-	await browser.storage.sync.set({siteList: data.siteList});
+	await browser.storage.local.set({sessionList: data.sessionList});
+	await browser.storage.local.set({siteList: data.siteList});
 }
 
-function labelStatus(blocked) {
+// Set
+function statusLabelString(blocked) {
   if (blocked) { return "blocked" } else { return "unblocked" };
 }
 
-
-// Run when page loads
-window.onload = function(){
-  console.log("open options page");
-	buildList();
-};
+buildList();
