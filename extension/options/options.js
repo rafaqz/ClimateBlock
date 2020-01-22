@@ -20,10 +20,7 @@ function blockAll(event) {
     statusLabels[i].textContent = statusLabelString(this.checked); 
   };
 
-  browser.storage.local.set({siteList: siteList});
-  browser.storage.local.set({sessionList: sessionList});
-
-  console.log("blocked all: ", this.checked);
+  browser.storage.local.set({siteList: siteList, sessionList: sessionList});
 };
 
 // Load settings

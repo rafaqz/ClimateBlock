@@ -17,12 +17,10 @@ function getParameterByName(name, url) {
 function getUrlIndex(data) {
   // Find the site filter that matches the query url
   url = getParameterByName('url');
-  console.log("URL: " + url);
   index = -1;
   for (i = 0; i < data.siteList.length; i++) {
     // Remove the wildcards and match the url body
     siteFilter = data.siteList[i].url.slice(6, -2);
-    console.log("Filter: " + siteFilter);
     if (url.includes(siteFilter)) {
       index = i;
       break;
@@ -35,8 +33,6 @@ function getUrlIndex(data) {
 async function allowAllways(event) {
 	let data = await browser.storage.local.get();
   [url, index] = getUrlIndex(data);
-  console.log(url)
-  console.log(index)
   if (index >= 0) {
     data.siteList[index].blocked = false;
     browser.storage.local.set({siteList: data.siteList});
@@ -54,8 +50,6 @@ async function allowAllways(event) {
 async function allowSession(event) {
 	let data = await browser.storage.local.get();
   [url, index] = getUrlIndex(data);
-  console.log(url)
-  console.log(index)
   if (index >= 0) {
     data.sessionList[index] = false;
     browser.storage.local.set({sessionList: data.sessionList});
@@ -70,19 +64,13 @@ async function allowSession(event) {
 }
 
 // Add callbacks to page buttons
-async function setupAllowButtons(){
+async function setupOrRedirect(){
   // Allow refresh if unblocked elsewhere
 	let data = await browser.storage.local.get();
   [url, index] = getUrlIndex(data);
-  console.log(url)
-  console.log(index)
-  console.log(data.siteList[index].blocked)
-  if (!data.siteList[index].blocked) {
-    console.log("redirect");
+  if (!data.isBlocking || !data.siteList[index].blocked) {
     window.location.href = url;
   };
-
-  console.log("open blocked page");
 
   var btnAllowAllways = document.getElementById('btn-allways');
   btnAllowAllways.onclick = allowAllways;
@@ -91,4 +79,4 @@ async function setupAllowButtons(){
   btnThisTime.onclick = allowSession;
 };
 
-setupAllowButtons();
+setupOrRedirect();

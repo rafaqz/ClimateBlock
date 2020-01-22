@@ -4,15 +4,13 @@
 
 // Create block handler
 async function createBlocker() {
-  // Remove previous listener
+  // Remove previous listener 
   browser.webRequest.onBeforeRequest.removeListener(block);
-  
   // Load URLs from storage
   let data = await browser.storage.local.get();
   
   // Check if there are URLs to load
-  if (data.siteList) {
-
+  if (data.isBlocking && data.siteList) {
     // Create URL fliter list
     filter = [];
     for (i = 0; i < data.siteList.length; i++) {
@@ -38,23 +36,31 @@ async function checkData() {
     browser.storage.local.set({siteList: sites});
   };
 
+  // Reset the session list and set blocking to true
   sessionList = [];
   for (i = 0; i < sites.length; i++) {
     sessionList.push(true);
   }
-  browser.storage.local.set({sessionList: sessionList});
-  console.log("data updated");
+  browser.storage.local.set({sessionList: sessionList, isBlocking: true});
 }
 
 // Toggle url blocking and icon
-function toggleBlock() {
-  if (browser.webRequest.onBeforeRequest.hasListener(block)) {
-    browser.webRequest.onBeforeRequest.removeListener(block);
-    browser.browserAction.setIcon({path: "icons/favicon-disabled.svg"});
-  } else {
-    browser.webRequest.onBeforeRequest.addListener(block, {urls: filter}, ["blocking"]);
+async function toggleBlocking() {
+  let data = await browser.storage.local.get();
+  blocked = !data.isBlocking;
+
+  if (blocked) {
     browser.browserAction.setIcon({path: "icons/favicon.svg"});
+  } else {
+    browser.browserAction.setIcon({path: "icons/favicon-disabled.svg"});
   }
+
+  // Reset the session when the icon is clicked
+  sessionList = [];
+  for (i = 0; i < data.siteList.length; i++) {
+    sessionList.push(true)
+  };
+  browser.storage.local.set({sessionList: sessionList, isBlocking: blocked});
 }
 
 // Handle blocked URL
@@ -76,7 +82,7 @@ function setupData() {
 
   createBlocker();
   browser.storage.onChanged.addListener(createBlocker);
-  browser.browserAction.onClicked.addListener(toggleBlock);
+  browser.browserAction.onClicked.addListener(toggleBlocking);
   checkData();
 }
 

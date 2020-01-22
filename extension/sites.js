@@ -285,7 +285,16 @@ var sites = [
   {"name": "Fox Sports Pulse",                "url": "*://*.foxsportspulse.com/*",                   "blocked": true},
   {"name": "Movies TV Network",               "url": "*://*.moviestvnetwork.com/*",                  "blocked": true},
   {"name": "BTN",                             "url": "*://*.btn.com/*",                              "blocked": true},
-  {"name": "BTN2go",                          "url": "*://*.btn2go.com/*",                           "blocked": true}
+  {"name": "BTN2go",                          "url": "*://*.btn2go.com/*",                           "blocked": true},
+
+  //***** Non-Newscorp *****/
+  
+  //***** Press holdings *****/
+  {"name": "Apollo magazine",                 "url": "*://*.apollo-magazine.com/*",                  "blocked": true},
+  {"name": "The Telegraph (UK)",              "url": "*://*.telegraph.co.uk/*",                      "blocked": true},
+  {"name": "The Spectator (UK)",              "url": "*://*.spectator.co.uk/*",                      "blocked": true},
+  {"name": "The Spectator (AU)",              "url": "*://*.spectator.com.au/*",                     "blocked": true}
+
 ]
 
 sites.sort((a, b) => (a.url > b.url) ? 1 : -1);
