@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Climate Block",
-	"version": "1.0",
+	"version": "1.0.2",
 	"description": "Murdoch press denies climate-change and manipulates our governments. This extension blocks all of their websites.",
 	"author": "Rafael Schouten",
 	"icons": {
