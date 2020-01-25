@@ -69,17 +69,6 @@ function block(details) {
 }
 
 function setupData() {
-  console.log("setting up");
-
-  browser.contextMenus.create({
-    id: "blocked-site-list",
-    title: "Climate block",
-    contexts: ['all'],
-    onclick: function () {
-      browser.tabs.create({url: browser.extension.getURL('options/options.html')});
-    },
-  });
-
   createBlocker();
   browser.storage.onChanged.addListener(createBlocker);
   browser.browserAction.onClicked.addListener(toggleBlocking);
