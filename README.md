@@ -1,7 +1,10 @@
 Climate Block is a browser plugin for blocking climate-change denying publications, such as those owned by NewsCorp.
+Available for [Firefox](https://addons.mozilla.org/en-US/firefox/addon/climateblock/) and [Chrome](https://chrome.google.com/webstore/detail/climate-block/jifgeeihppamghkhgfmedepgigmhfkgd).
 
 Thanks to Wesley Branton for some of the initial code from [WebsiteBlocker](https://github.com/WesleyBranton/Website-Blocker),
 and Mat Carpenter for most of the site list [ByeRupert](https://www.lifehacker.com.au/2014/12/bye-rupert-chrome-extension-blocks-all-news-corp-australia-sites/).
+
+
 
 ## Development
 
